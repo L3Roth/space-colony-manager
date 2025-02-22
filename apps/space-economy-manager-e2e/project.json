@@ -1,0 +1,9 @@
+{
+  "name": "space-economy-manager-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/space-economy-manager-e2e/src",
+  "implicitDependencies": ["space-economy-manager"],
+  "// targets": "to see all targets run: nx show project space-economy-manager-e2e --web",
+  "targets": {}
+}
