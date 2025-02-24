@@ -1,1 +1,4 @@
-export * from './lib/events/events.component';
+export * from './lib/state/events.reducer';
+export * from './lib/state/events.selectors';
+export * from './lib/state/events.actions';
+export * from './lib/state/events.state';
