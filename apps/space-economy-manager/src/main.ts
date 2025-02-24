@@ -5,10 +5,13 @@ import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/app.routes';
 import { provideStore } from '@ngrx/store';
 import { resourcesReducer } from '@space-economy-manager/resources';
+import { buildingsReducer } from '@space-economy-manager/buildings';
+
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideStore({ resources: resourcesReducer }),
+    provideStore({ buildings: buildingsReducer }),
     provideRouter(appRoutes),
     provideHttpClient(),
   ],
