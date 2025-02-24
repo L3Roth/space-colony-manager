@@ -6,6 +6,7 @@ import { selectFood, selectWater, selectEnergy, ResourcesState } from '@space-ec
 import { BuildingsState, selectAllBuildings } from '@space-economy-manager/buildings';
 import { EventsState, selectAllEvents } from '@space-economy-manager/events';
 import { ColonistsState, selectAllColonists } from '@space-economy-manager/colonists';
+import { GameEventsService } from '../../services/game-events.service';
 
 @Component({
   selector: 'app-game',
@@ -27,6 +28,7 @@ export class GameComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
+    private gameEventService: GameEventsService,
     private resourcesStore: Store<ResourcesState>,
     private buildingsStore: Store<BuildingsState>,
     private eventStore: Store<EventsState>,
@@ -45,5 +47,6 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.startGame();
+    this.gameEventService.startEventStream();
   }
 }
