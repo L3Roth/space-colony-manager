@@ -7,6 +7,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import { resourcesReducer } from '@space-economy-manager/resources';
 import { buildingsReducer } from '@space-economy-manager/buildings';
 import { eventsReducer } from '@space-economy-manager/events';
+import { colonistsReducer } from '@space-economy-manager/colonists';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -14,6 +15,7 @@ bootstrapApplication(AppComponent, {
     provideState('resources', resourcesReducer),
     provideState('buildings', buildingsReducer),
     provideState('events', eventsReducer),
+    provideState('colonists', colonistsReducer),
     provideRouter(appRoutes),
     provideHttpClient(),
   ],
