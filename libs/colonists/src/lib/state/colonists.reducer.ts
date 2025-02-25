@@ -5,10 +5,12 @@ import { addColonist, updateMorale } from "./colonists.actions";
 export const colonistsReducer = createReducer(
   initialColonistsState,
 
-  on(addColonist, (state, { colonist }) => ({
-    ...state,
-    colonists: [...state.colonists, colonist],
-  })),
+  on(addColonist, (state, { colonist }) => {
+    return {
+      ...state,
+      colonists: [...state.colonists, colonist],
+    };
+  }),
 
   on(updateMorale, (state, { colonistId, morale }) => ({
     ...state,
@@ -17,3 +19,4 @@ export const colonistsReducer = createReducer(
     ),
   }))
 );
+

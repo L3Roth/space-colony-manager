@@ -1,7 +1,8 @@
 export interface GameEvent {
   id: string;
   description: string;
-  impact: string;
+  impact: 'food' | 'water' | 'energy' | 'colonist' | 'morale';
+  amount: number;
 }
 
 export interface EventsState {
