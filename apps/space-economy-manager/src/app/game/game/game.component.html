@@ -1,9 +1,9 @@
 <h1>Space Colony Manager</h1>
 
 <h2>Ressourcen</h2>
-<p>Food: {{ food$ | async }}</p>
-<p>Water: {{ water$ | async }}</p>
-<p>Energy: {{ energy$ | async }}</p>
+<p>🍞 Nahrung: {{ food$ | async }}</p>
+<p>💧 Wasser: {{ water$ | async }}</p>
+<p>⚡ Energie: {{ energy$ | async }}</p>
 
 <h2>Gebäude</h2>
 <ul>
@@ -22,6 +22,6 @@
 <h2>Events</h2>
 <ul>
   <li *ngFor="let event of events$ | async">
-    {{ event.description }} (Impact: {{ event.impact }})
+    {{ event.description }} → {{ event.amount > 0 ? '+' : '' }}{{ event.amount }} {{ event.impact }}
   </li>
 </ul>
