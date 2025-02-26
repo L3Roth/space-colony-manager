@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { interval, map } from 'rxjs';
+import { combineLatest, interval, map, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { addEvent } from '@space-economy-manager/events';
 import { increaseResource, decreaseResource } from '@space-economy-manager/resources';
-import { addColonist, updateMorale, ColonistsState } from '@space-economy-manager/colonists';
+import { addColonist, updateMorale, ColonistsState, selectAllColonists } from '@space-economy-manager/colonists';
+import { selectAllBuildings, updateBuildingStatus } from '@space-economy-manager/buildings';
 
 interface AppState {
   colonists: ColonistsState;
@@ -57,18 +58,19 @@ export class GameEventsService {
           console.log('🧑‍🚀 New Colonist Data:', newColonist);
 
           this.store.dispatch(addColonist({ colonist: newColonist }));
+          this.checkBuildingStatus();
         }
 
         // Handle Morale Events
         else if (gameEvent.impact === 'morale') {
           console.log('💔 Morale Event:', gameEvent);
 
-          this.store.select(state => state.colonists.colonists).subscribe(colonists => {
+          this.store.select(selectAllColonists).pipe(take(1)).subscribe(colonists => {
             colonists.forEach(colonist => {
-              this.store.dispatch(updateMorale({
-                colonistId: colonist.id,
-                morale: Math.max(0, colonist.morale + gameEvent.amount) // Prevent negative morale
-              }));
+              const newMorale = Math.max(0, colonist.morale + gameEvent.amount); // Prevent morale below 0
+              console.log(`💔 Updating morale for ${colonist.name}: ${colonist.morale} → ${newMorale}`);
+
+              this.store.dispatch(updateMorale({ colonistId: colonist.id, morale: newMorale }));
             });
           });
         }
@@ -85,5 +87,28 @@ export class GameEventsService {
         }
       });
   }
+
+  checkBuildingStatus() {
+    combineLatest([
+      this.store.select(selectAllColonists),
+      this.store.select(selectAllBuildings)
+    ])
+    .pipe(
+      map(([colonists, buildings]) => {
+        return buildings.map(building => {
+          const availableColonists = colonists.length;
+          const isActive = availableColonists >= building.requiredColonists;
+          return { ...building, isActive };
+        });
+      })
+    )
+    .subscribe(updatedBuildings => {
+      updatedBuildings.forEach(building => {
+        this.store.dispatch(updateBuildingStatus({ buildingId: building.id, isActive: building.isActive }));
+      });
+    });
+  }
+
+
 
 }

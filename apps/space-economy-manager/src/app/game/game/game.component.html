@@ -19,6 +19,16 @@
   </li>
 </ul>
 
+<h2>Gebäude</h2>
+<ul>
+  <li *ngFor="let building of buildings$ | async">
+    {{ building.type }} (Level: {{ building.level }}) -
+    <span [style.color]="building.isActive ? 'green' : 'red'">
+      {{ building.isActive ? '🟢 Aktiv' : '🔴 Inaktiv' }}
+    </span>
+  </li>
+</ul>
+
 <h2>Events</h2>
 <ul>
   <li *ngFor="let event of events$ | async">

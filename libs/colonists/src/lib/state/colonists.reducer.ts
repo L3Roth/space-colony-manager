@@ -6,6 +6,7 @@ export const colonistsReducer = createReducer(
   initialColonistsState,
 
   on(addColonist, (state, { colonist }) => {
+    console.log('🧑‍🚀 Reducer: Colonist added', colonist);
     return {
       ...state,
       colonists: [...state.colonists, colonist],
@@ -14,8 +15,8 @@ export const colonistsReducer = createReducer(
 
   on(updateMorale, (state, { colonistId, morale }) => ({
     ...state,
-    colonists: state.colonists.map(c =>
-      c.id === colonistId ? { ...c, morale } : c
+    colonists: state.colonists.map(colonist =>
+      colonist.id === colonistId ? { ...colonist, morale } : colonist
     ),
   }))
 );
