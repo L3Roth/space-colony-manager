@@ -1,0 +1,11 @@
+<h2>Gebäude Bauen</h2>
+
+<label for="building">Gebäude auswählen:</label>
+<select id="building" [(ngModel)]="selectedBuildingType">
+  <option value="" disabled selected>Bitte auswählen...</option>
+  <option *ngFor="let building of buildings" [value]="building.type">
+    {{ building.type }} (Benötigt {{ building.requiredColonists }} Kolonisten)
+  </option>
+</select>
+
+<button (click)="addBuilding()" [disabled]="!selectedBuildingType">🏗️ Gebäude hinzufügen</button>
