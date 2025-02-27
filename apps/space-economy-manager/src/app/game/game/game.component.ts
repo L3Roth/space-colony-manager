@@ -7,11 +7,12 @@ import { BuildingsState, selectAllBuildings } from '@space-economy-manager/build
 import { EventsState, selectAllEvents } from '@space-economy-manager/events';
 import { ColonistsState, selectAllColonists } from '@space-economy-manager/colonists';
 import { GameEventsService } from '../../services/game-events.service';
+import { BuildingSelectionComponent } from '../building-selection/building-selection.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BuildingSelectionComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })

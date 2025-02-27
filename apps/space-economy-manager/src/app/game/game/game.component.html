@@ -5,19 +5,7 @@
 <p>💧 Wasser: {{ water$ | async }}</p>
 <p>⚡ Energie: {{ energy$ | async }}</p>
 
-<h2>Gebäude</h2>
-<ul>
-  <li *ngFor="let building of buildings$ | async">
-    {{ building.type }} (Level: {{ building.level }})
-  </li>
-</ul>
-
-<h2>Kolonisten</h2>
-<ul>
-  <li *ngFor="let colonist of colonists$ | async">
-    {{ colonist.name }} - Job: {{ colonist.job }} (Morale: {{ colonist.morale }})
-  </li>
-</ul>
+<app-building-selection></app-building-selection>
 
 <h2>Gebäude</h2>
 <ul>
@@ -26,6 +14,13 @@
     <span [style.color]="building.isActive ? 'green' : 'red'">
       {{ building.isActive ? '🟢 Aktiv' : '🔴 Inaktiv' }}
     </span>
+  </li>
+</ul>
+
+<h2>Kolonisten</h2>
+<ul>
+  <li *ngFor="let colonist of colonists$ | async">
+    {{ colonist.name }} - Job: {{ colonist.job }} (Morale: {{ colonist.morale }})
   </li>
 </ul>
 
